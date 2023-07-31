@@ -29,21 +29,21 @@
             border: 3px solid #000;
             width: 100px;
             /* 搭配transform origin,隨時間可以去變動角度 */
-            transform:translate(-50%, -50%) rotate(270deg);
+            transform: translate(0, -50%) rotate(270deg);
         }
 
         .min-hand {
             border: 3px solid #000;
             width: 150px;
             /* 搭配transform origin,隨時間可以去變動角度 */
-            transform:translate(0, -50%) rotate(270deg);
+            transform: translate(0, -50%) rotate(270deg);
         }
 
         .second-hand {
             border: 3px solid #000;
             width: 200px;
             /* 搭配transform origin,隨時間可以去變動角度 */
-            transform:translate(0, -50%) rotate(270deg);
+            transform: translate(0, -50%) rotate(270deg);
         }
     </style>
 </head>
@@ -59,18 +59,39 @@
         let minHand = document.querySelector('.min-hand');
         let secondHand = document.querySelector('.second-hand');
         let date = new Date();
+        let minutes = date.getMinutes();
         let seconds = date.getSeconds();
+        let hours = date.getHours();
         // console.log(seconds);
 
+        // 秒針
         setInterval(displaySecondHand, 1000);
 
         function displaySecondHand() {
             date = new Date();
             seconds = date.getSeconds();
-            console.log(seconds);
+            // 更新分鐘，外部只有更新一次，裡面可以每一秒就確認一次 最新狀況
             secondHand.style.transform = `translate(0, -50%) rotate(${(seconds * 6) - 90}deg)`;
-            // 加上更新位子與減掉角度
+            // 加上更新位子與減掉角度回到正確的位子
         };
+
+        // 分針
+        setInterval(displayMinHand, 1000);
+
+        function displayMinHand() {
+            date = new Date();
+            minutes = date.getMinutes();
+            // 更新分鐘，外部只有更新一次，裡面可以每一秒就確認一次 最新狀況
+            minHand.style.transform = `translate(0, -50%) rotate(${(minutes * 6) - 90}deg)`;
+        }
+
+        // 時針
+        setInterval(displayHourHand, 1000);
+        function displayHourHand () {
+            date = new Date();
+            hours = date.getHours();
+            hourHand.style.transform = `translate(0, -50%) rotate(${(hours * 30) - 90}deg)`;
+        }
     </script>
 </body>
 
